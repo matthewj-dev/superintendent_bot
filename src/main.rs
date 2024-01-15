@@ -1,17 +1,12 @@
-mod commands;
-
 use teloxide::prelude::*;
+mod commands;
 
 #[tokio::main]
 async fn main() {
     pretty_env_logger::init();
-    log::info!("Starting throw dice bot...");
+    log::info!("Starting superintendent bot...");
 
     let bot = Bot::from_env();
 
-    teloxide::repl(bot, |bot: Bot, msg: Message| async move {
-        bot.send_dice(msg.chat.id).await?;
-        Ok(())
-    })
-    .await;
+    commands::main::Command::repl(bot, commands::main::answer).await;
 }
