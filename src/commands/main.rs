@@ -10,6 +10,8 @@ use teloxide::{prelude::*, utils::command::BotCommands};
 pub enum Command {
     #[command(description = "display this text.")]
     Help,
+    #[command(description = "rolls dice.")]
+    Dice,
 }
 
 pub async fn answer(bot: Bot, msg: Message, cmd: Command) -> ResponseResult<()> {
@@ -17,6 +19,9 @@ pub async fn answer(bot: Bot, msg: Message, cmd: Command) -> ResponseResult<()> 
         Command::Help => {
             bot.send_message(msg.chat.id, Command::descriptions().to_string())
                 .await?
+        }
+        Command::Dice => {
+            bot.send_dice(msg.chat.id).await?
         }
     };
 
