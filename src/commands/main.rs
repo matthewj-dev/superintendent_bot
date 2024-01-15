@@ -17,7 +17,9 @@ pub enum Command {
 pub async fn answer(bot: Bot, msg: Message, cmd: Command) -> ResponseResult<()> {
     match cmd {
         Command::Help => {
-            bot.send_message(msg.chat.id, Command::descriptions().to_string())
+            let help_response = format!("{}\n\n{}", Command::descriptions().to_string(), "PLEASE REMAIN CALM.");
+
+            bot.send_message(msg.chat.id, help_response)
                 .await?
         }
         Command::Dice => {
